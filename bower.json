@@ -1,8 +1,13 @@
 {
-  "name": "purescript-number-format",
-  "homepage": "https://github.com/Jonplussed/purescript-number-format",
-  "description": "Number-to-String functions",
-  "license": "MIT",
+  "name":         "purescript-number-format",
+  "homepage":     "https://github.com/Jonplussed/purescript-number-format",
+  "description":  "Number-to-String functions",
+  "license":      "MIT",
+
+  "dependencies": {
+    "purescript-exceptions": "0.2.2",
+    "purescript-maybe":      "0.2.1"
+  },
 
   "keywords": [
     "purescript",
