@@ -3,26 +3,12 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
 
-
-
-    // file locations
-
-    srcFiles: [
-      "src/**/*.purs",
-      "bower_components/purescript-*/src/**/*.purs",
-    ],
-
-    testFiles: [
-      "test/**/*.purs",
-      "<%=srcFiles%>"
-    ],
-
+    // source file locations
+    srcFiles:   ["src/**/*.purs", "bower_components/purescript-*/src/**/*.purs"],
+    testFiles:  ["test/**/*.purs", "<%=srcFiles%>"],
     testOutput: "output/test.js",
 
-
-
     // tasks
-
     clean:   ["output"],
     dotPsci: ["<%=srcFiles%>"],
     pscMake: ["<%=srcFiles%>"],
@@ -61,6 +47,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks("grunt-shell");
 
   grunt.registerTask("make", ["pscMake", "dotPsci", "pscDocs"]);
-  grunt.registerTask("default", ["make"]);
   grunt.registerTask("test", ["psc:test", "shell"]);
+  grunt.registerTask("default", ["test"]);
 };
