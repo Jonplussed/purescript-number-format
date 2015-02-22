@@ -17,7 +17,7 @@ foreign import toExponential """
       }
     }
   }
-""" :: forall eff. Number -> Number -> Maybe String
+""" :: Number -> Number -> Maybe String
 
 foreign import toFixed """
   function toFixed(scale) {
@@ -29,7 +29,7 @@ foreign import toFixed """
       }
     }
   }
-""" :: forall eff. Number -> Number -> Maybe String
+""" :: Number -> Number -> Maybe String
 
 foreign import toPrecision """
   function toPrecision(prec) {
@@ -41,7 +41,7 @@ foreign import toPrecision """
       }
     }
   }
-""" :: forall eff. Number -> Number -> Maybe String
+""" :: Number -> Number -> Maybe String
 
 foreign import toString """
   function toString(radix) {
@@ -53,4 +53,4 @@ foreign import toString """
       }
     }
   }
-""" :: forall eff. Number -> Number -> Maybe String
+""" :: Number -> Number -> Maybe String

@@ -1,17 +1,61 @@
 # Module Documentation
 
-## Module Number.Format
+## Module Number.Format.Eff
 
-### Values
+#### `toExponential`
 
-
-    toExponential :: Number -> Number -> String
-
-
-    toFixed :: Number -> Number -> String
+``` purescript
+toExponential :: forall eff. Number -> Number -> Eff eff String
+```
 
 
-    toPrecision :: Number -> Number -> String
+#### `toFixed`
+
+``` purescript
+toFixed :: forall eff. Number -> Number -> Eff eff String
+```
 
 
-    toString :: Number -> Number -> String
+#### `toPrecision`
+
+``` purescript
+toPrecision :: forall eff. Number -> Number -> Eff eff String
+```
+
+
+#### `toString`
+
+``` purescript
+toString :: forall eff. Number -> Number -> Eff eff String
+```
+
+
+
+## Module Number.Format.Maybe
+
+#### `toExponential`
+
+``` purescript
+toExponential :: Number -> Number -> Maybe String
+```
+
+
+#### `toFixed`
+
+``` purescript
+toFixed :: Number -> Number -> Maybe String
+```
+
+
+#### `toPrecision`
+
+``` purescript
+toPrecision :: Number -> Number -> Maybe String
+```
+
+
+#### `toString`
+
+``` purescript
+toString :: Number -> Number -> Maybe String
+```
