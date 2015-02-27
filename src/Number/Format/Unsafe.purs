@@ -1,14 +1,14 @@
-module Number.Format.Eff
-( toExponential
-, toFixed
-, toPrecision
-, toString
+module Number.Format.Unsafe
+( unsafeToExponential
+, unsafeToFixed
+, unsafeToPrecision
+, unsafeToString
 ) where
 
 import Control.Monad.Eff (Eff ())
 
-foreign import toExponential """
-  function toExponential(scale) {
+foreign import unsafeToExponential """
+  function unsafeToExponential(scale) {
     return function (number) {
       return function () {
         return number.toExponential(scale);
@@ -17,8 +17,8 @@ foreign import toExponential """
   }
 """ :: forall eff. Number -> Number -> Eff eff String
 
-foreign import toFixed """
-  function toFixed(scale) {
+foreign import unsafeToFixed """
+  function unsafeToFixed(scale) {
     return function (number) {
       return function () {
         return number.toFixed(scale);
@@ -27,8 +27,8 @@ foreign import toFixed """
   }
 """ :: forall eff. Number -> Number -> Eff eff String
 
-foreign import toPrecision """
-  function toPrecision(prec) {
+foreign import unsafeToPrecision """
+  function unsafeToPrecision(prec) {
     return function (number) {
       return function () {
         return number.toPrecision(prec);
@@ -37,8 +37,8 @@ foreign import toPrecision """
   }
 """ :: forall eff. Number -> Number -> Eff eff String
 
-foreign import toString """
-  function toString(radix) {
+foreign import unsafeToString """
+  function unsafeToString(radix) {
     return function (number) {
       return function () {
         return number.toString(radix);
