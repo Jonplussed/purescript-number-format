@@ -39,6 +39,31 @@ range 2—36 or a `Just` otherwise.
 
 
 
+## Module Number.Format.ToString
+Safe versions of common number-to-string formatters.
+
+#### `toBinString`
+
+``` purescript
+toBinString :: Number -> String
+```
+
+
+#### `toHexString`
+
+``` purescript
+toHexString :: Number -> String
+```
+
+
+#### `toOctString`
+
+``` purescript
+toOctString :: Number -> String
+```
+
+
+
 ## Module Number.Format.Unsafe
 
 #### `unsafeToExponential`

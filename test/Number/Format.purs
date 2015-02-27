@@ -6,7 +6,6 @@ import Test.Unit
 
 tests = do
   let n = 1.2345
-      isNothing = not <<< isJust
 
   test "Number.Format.toExponential" do
     test "formatting" do
