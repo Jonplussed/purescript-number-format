@@ -3,10 +3,11 @@
   "homepage":     "https://github.com/Jonplussed/purescript-number-format",
   "description":  "Number-to-String functions",
   "license":      "MIT",
-  "version":      "0.2.0",
+  "version":      "0.2.1",
 
   "dependencies": {
-    "purescript-maybe": "0.2.1"
+    "purescript-exceptions": "0.2.3",
+    "purescript-maybe": "0.2.2"
   },
 
   "keywords": [
