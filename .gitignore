@@ -3,7 +3,6 @@
 
 # installed packages
 npm-debug.log
-node_modules/
 bower_components/
 
 # compiled PureScript files
