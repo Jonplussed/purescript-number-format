@@ -7,6 +7,8 @@ module Number.Format.ToString
 import Data.Maybe.Unsafe (fromJust)
 import Number.Format (toString)
 
+import Prelude
+
 toBinString :: Number -> String
 toBinString = fromJust <<< toString 2
 

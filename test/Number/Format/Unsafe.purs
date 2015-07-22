@@ -3,6 +3,7 @@ module Test.Number.Format.Unsafe (tests) where
 import Control.Monad.Eff
 import Control.Monad.Eff.Exception
 import Number.Format.Unsafe
+import Prelude
 import Test.Unit
 
 tests = do
@@ -59,7 +60,7 @@ tests = do
         formatted <- unsafeToString 10 n
         check $ formatted == "1.2345"
       assertFn "radix of 2" \check -> do
-        formatted <- unsafeToString 2 3
+        formatted <- unsafeToString 2 3.0
         check $ formatted == "11"
     test "lower radix bound" do
       assertFn "2 doesn't error" $ shouldNotError (unsafeToString 2 n)
@@ -68,12 +69,12 @@ tests = do
       assertFn "36 doesn't error" $ shouldNotError (unsafeToString 36 n)
       assertFn "37 raises a RangeError" $ shouldError (unsafeToString 37 n)
 
-shouldError :: forall eff a. Eff (err :: Exception | eff) a -> (Boolean -> Eff eff Unit) -> Eff eff Unit
+shouldError :: forall eff a. Eff (err :: EXCEPTION | eff) a -> (Boolean -> Eff eff Unit) -> Eff eff Unit
 shouldError fn check = do
   didError <- catchException (return <<< const true) (fn >>= return <<< const false)
   check didError
 
-shouldNotError :: forall eff a. Eff (err :: Exception | eff) a -> (Boolean -> Eff eff Unit) -> Eff eff Unit
+shouldNotError :: forall eff a. Eff (err :: EXCEPTION | eff) a -> (Boolean -> Eff eff Unit) -> Eff eff Unit
 shouldNotError fn check = do
   didError <- catchException (return <<< const false) (fn >>= return <<< const true)
   check didError

@@ -2,6 +2,7 @@ module Test.Number.Format (tests) where
 
 import Data.Maybe
 import Number.Format
+import Prelude
 import Test.Unit
 
 tests = do
@@ -43,7 +44,7 @@ tests = do
   test "Number.Format.toString" do
     test "formatting" do
       assert "radix of 10" $ toString 10 n == Just "1.2345"
-      assert "radix of 2" $ toString 2 3 == Just "11"
+      assert "radix of 2" $ toString 2 3.0 == Just "11"
     test "lower radix bound" do
       assert "2 returns a Just String" $ isJust $ toString 2 n
       assert "1 returns Nothing" $ isNothing $ toString 1 n
