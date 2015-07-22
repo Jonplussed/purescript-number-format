@@ -6,6 +6,12 @@
 toBinString :: Number -> String
 ```
 
+#### `toDecString`
+
+``` purescript
+toDecString :: Number -> String
+```
+
 #### `toHexString`
 
 ``` purescript

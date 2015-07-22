@@ -1,5 +1,6 @@
 module Number.Format.ToString
 ( toBinString
+, toDecString
 , toHexString
 , toOctString
 ) where
@@ -11,6 +12,9 @@ import Prelude
 
 toBinString :: Number -> String
 toBinString = fromJust <<< toString 2
+
+toDecString :: Number -> String
+toDecString = fromJust <<< toString 10
 
 toHexString :: Number -> String
 toHexString = fromJust <<< toString 16
