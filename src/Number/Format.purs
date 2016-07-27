@@ -36,4 +36,4 @@ toString radix num = runPure (errorAsNothing $ Just <$> unsafeToString radix num
 -- private functions
 
 errorAsNothing :: forall eff a. Eff (err :: EXCEPTION | eff) (Maybe a) -> Eff eff (Maybe a)
-errorAsNothing = catchException (return <<< const Nothing)
+errorAsNothing = catchException (pure <<< const Nothing)
