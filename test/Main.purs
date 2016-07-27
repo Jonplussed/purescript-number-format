@@ -1,10 +1,10 @@
 module Test.Main where
 
-import Test.Unit (runTest)
+import Test.Unit.Main (runTest)
 
-import qualified Test.Number.Format           as Safe
-import qualified Test.Number.Format.Unsafe    as Unsafe
-import qualified Test.Number.Format.ToString  as ToString
+import Test.Number.Format           as Safe
+import Test.Number.Format.Unsafe    as Unsafe
+import Test.Number.Format.ToString  as ToString
 
 import Prelude
 
