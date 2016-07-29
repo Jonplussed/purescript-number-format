@@ -5,76 +5,61 @@ import Control.Monad.Eff.Exception
 import Number.Format.Unsafe
 import Prelude
 import Test.Unit
+import Test.Unit.Assert
 
+tests :: forall e. TestSuite e
 tests = do
   let n = 1.2345
 
-  test "Number.Format.Unsafe.unsafeToExponential" do
+  suite "Number.Format.Unsafe.unsafeToExponential" do
     test "formatting" do
-      assertFn "scale of 3" \check -> do
-        formatted <- unsafeToExponential 3 n
-        check $ formatted == "1.234e+0"
-      assertFn "scale of 6" \check -> do
-        formatted <- unsafeToExponential 6 12.345
-        check $ formatted == "1.234500e+1"
-    test "lower scale bound" do
-      assertFn "0 doesn't error" $ shouldNotError (unsafeToExponential 0 n)
-      assertFn "-1 throws a RangeError" $ shouldError (unsafeToExponential (-1) n)
-    test "upper scale bound" do
-      assertFn "20 doesn't error" $ shouldNotError (unsafeToExponential 20 n)
-      assertFn "21 raises a RangeError" $ shouldError (unsafeToExponential 21 n)
+      assert "scale of 3" $ runPure (unsafeToExponential 3 n) ==  "1.234e+0"
+      assert "scale of 6" $ runPure (unsafeToExponential 6 12.345) == "1.234500e+1"
 
-  test "Number.Format.Unsafe.unsafeToFixed" do
-    test "formatting" do
-      assertFn "scale of 3" \check -> do
-        formatted <- unsafeToFixed 3 n
-        check $ formatted == "1.234"
-      assertFn "scale of 6" \check -> do
-        formatted <- unsafeToFixed 6 n
-        check $ formatted == "1.234500"
     test "lower scale bound" do
-      assertFn "0 doesn't error" $ shouldNotError (unsafeToFixed 0 n)
-      assertFn "-1 raises a RangeError" $ shouldError (unsafeToFixed (-1) n)
+      assert "0 doesn't error" $ runPure $ shouldNotError (unsafeToExponential 0 n)
+      assert "-1 throws a RangeError" $ runPure $ shouldError (unsafeToExponential (-1) n)
     test "upper scale bound" do
-      assertFn "20 doesn't error" $ shouldNotError (unsafeToFixed 20 n)
-      assertFn "21 raises a RangeError" $ shouldError (unsafeToFixed 21 n)
+      assert "20 doesn't error" $ runPure $ shouldNotError (unsafeToExponential 20 n)
+      assert "21 raises a RangeError" $ runPure $ shouldError (unsafeToExponential 21 n)
 
-  test "Number.Format.Unsafe.unsafeToPrecision" do
+  suite "Number.Format.Unsafe.unsafeToFixed" do
     test "formatting" do
-      assertFn "precision of 3" \check -> do
-        formatted <- unsafeToPrecision 3 n
-        check $ formatted == "1.23"
-      assertFn "precision of 4" \check -> do
-        formatted <- unsafeToPrecision 4 n
-        check $ formatted == "1.234"
+      assert "scale of 3" $ runPure (unsafeToFixed 3 n) == "1.234"
+      assert "scale of 6" $ runPure (unsafeToFixed 6 n) == "1.234500"
+    test "lower scale bound" do
+      assert "0 doesn't error" $ runPure $ shouldNotError (unsafeToFixed 0 n)
+      assert "-1 raises a RangeError" $ runPure $ shouldError (unsafeToFixed (-1) n)
+    test "upper scale bound" do
+      assert "20 doesn't error" $ runPure $ shouldNotError (unsafeToFixed 20 n)
+      assert "21 raises a RangeError" $ runPure $ shouldError (unsafeToFixed 21 n)
+
+  suite "Number.Format.Unsafe.unsafeToPrecision" do
+    test "formatting" do
+      assert "precision of 3" $ runPure (unsafeToPrecision 3 n) == "1.23"
+      assert "precision of 4" $ runPure (unsafeToPrecision 4 n) == "1.234"
     test "lower precision bound" do
-      assertFn "1 doesn't error" $ shouldNotError (unsafeToPrecision 1 n)
-      assertFn "0 raises a RangeError" $ shouldError (unsafeToPrecision 0 n)
+      assert "1 doesn't error" $ runPure $ shouldNotError (unsafeToPrecision 1 n)
+      assert "0 raises a RangeError" $ runPure $ shouldError (unsafeToPrecision 0 n)
     test "upper precision bound" do
-      assertFn "22 doesn't error" $ shouldNotError (unsafeToPrecision 21 n)
-      assertFn "22 raises a RangeError" $ shouldError (unsafeToPrecision 22 n)
+      assert "22 doesn't error" $ runPure $ shouldNotError (unsafeToPrecision 21 n)
+      assert "22 raises a RangeError" $ runPure $ shouldError (unsafeToPrecision 22 n)
 
-  test "Number.Format.Unsafe.unsafeToString" do
+  suite "Number.Format.Unsafe.unsafeToString" do
     test "formatting" do
-      assertFn "radix of 10" \check -> do
-        formatted <- unsafeToString 10 n
-        check $ formatted == "1.2345"
-      assertFn "radix of 2" \check -> do
-        formatted <- unsafeToString 2 3.0
-        check $ formatted == "11"
+      assert "radix of 10" $ runPure (unsafeToString 10 n) == "1.2345"
+      assert "radix of 2" $ runPure (unsafeToString 2 3.0) == "11"
     test "lower radix bound" do
-      assertFn "2 doesn't error" $ shouldNotError (unsafeToString 2 n)
-      assertFn "1 raises a RangeError" $ shouldError (unsafeToString 1 n)
+      assert "2 doesn't error" $ runPure $ shouldNotError (unsafeToString 2 n)
+      assert "1 raises a RangeError" $ runPure $ shouldError (unsafeToString 1 n)
     test "upper radix bound" do
-      assertFn "36 doesn't error" $ shouldNotError (unsafeToString 36 n)
-      assertFn "37 raises a RangeError" $ shouldError (unsafeToString 37 n)
+      assert "36 doesn't error" $ runPure $ shouldNotError (unsafeToString 36 n)
+      assert "37 raises a RangeError" $ runPure $ shouldError (unsafeToString 37 n)
 
-shouldError :: forall eff a. Eff (err :: EXCEPTION | eff) a -> (Boolean -> Eff eff Unit) -> Eff eff Unit
-shouldError fn check = do
-  didError <- catchException (return <<< const true) (fn >>= return <<< const false)
-  check didError
+shouldError :: forall eff a. Eff (err :: EXCEPTION | eff) a -> Eff eff Boolean
+shouldError fn = do
+  catchException (pure <<< const true) (fn >>= pure <<< const false)
 
-shouldNotError :: forall eff a. Eff (err :: EXCEPTION | eff) a -> (Boolean -> Eff eff Unit) -> Eff eff Unit
-shouldNotError fn check = do
-  didError <- catchException (return <<< const false) (fn >>= return <<< const true)
-  check didError
+shouldNotError :: forall eff a. Eff (err :: EXCEPTION | eff) a -> Eff eff Boolean
+shouldNotError fn = do
+  catchException (pure <<< const false) (fn >>= pure <<< const true)

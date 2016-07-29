@@ -3,10 +3,11 @@ module Test.Number.Format.ToString (tests) where
 import Number.Format.ToString
 import Prelude
 import Test.Unit
+import Test.Unit.Assert
 
+tests :: forall e. TestSuite e
 tests = do
-
-  test "Safe toString formatters" do
+  suite "Safe toString formatters" do
     test "Number.Format.ToString.toBinString" do
       assert "toBinString 64" $ toBinString 64.0 == "1000000"
       assert "toBinString 128" $ toBinString 128.0 == "10000000"

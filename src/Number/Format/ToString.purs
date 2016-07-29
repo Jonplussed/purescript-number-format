@@ -5,19 +5,23 @@ module Number.Format.ToString
 , toOctString
 ) where
 
-import Data.Maybe.Unsafe (fromJust)
+import Data.Maybe
 import Number.Format (toString)
+import Partial.Unsafe
 
 import Prelude
 
+toBaseXString :: Int -> Number -> String
+toBaseXString x = unsafePartial fromJust <<< toString x
+
 toBinString :: Number -> String
-toBinString = fromJust <<< toString 2
+toBinString = toBaseXString 2
 
 toDecString :: Number -> String
-toDecString = fromJust <<< toString 10
+toDecString = toBaseXString 10
 
 toHexString :: Number -> String
-toHexString = fromJust <<< toString 16
+toHexString = toBaseXString 16
 
 toOctString :: Number -> String
-toOctString = fromJust <<< toString 8
+toOctString = toBaseXString 8
